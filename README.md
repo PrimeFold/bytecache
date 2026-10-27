@@ -28,10 +28,17 @@ Data race safety: 100% verified with go test -race.
 ```
 Build and Run
 bash
-# Clone
+
+```
+
+### Clone
+```
 git clone https://github.com/PrimeFold/bytecache.git
 cd bytecache
-# Start the server on port 6379 (Redis default)
+```
+
+### Start the server on port 6379 (Redis default)
+```
 go run . start --port 6379
 
 ```
