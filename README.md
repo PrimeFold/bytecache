@@ -55,11 +55,11 @@ OK
 ```
 bash
 ```
-##Run unit tests and race detection
+## Run unit tests and race detection
 ```
 go test -v -race ./...
 ```
-##Run performance benchmarks
+## Run performance benchmarks
 ```
 go test -bench=. -benchmem -run=^$ .
 ```
