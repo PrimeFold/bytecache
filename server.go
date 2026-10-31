@@ -12,10 +12,10 @@ import (
 
 type Server struct{
 	listeningAddress string
-	cache *Cache
+	cache *cacheShardMap
 }
 
-func NewServer(listenAddr string , c *Cache ) *Server{
+func NewServer(listenAddr string , c *cacheShardMap ) *Server{
 	return &Server{
 		listeningAddress: listenAddr,
 		cache: c,

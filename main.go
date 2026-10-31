@@ -14,7 +14,8 @@ import (
 
 
 
-
+const shardMaxCount = 32
+const windowSec = 60
 
 func main(){
 
@@ -29,7 +30,7 @@ func main(){
 		Use:   "start",
 		Short: "Start the ByteCache TCP server",
 		Run: func(cmd *cobra.Command, args []string) {
-			cache := NewCache()
+			cache := NewShardMap(shardMaxCount,windowSec)
 			addr := fmt.Sprintf(":%d", port)
 			server := NewServer(addr, cache)
 			log.Printf("Starting ByteCache on port %d...", port)

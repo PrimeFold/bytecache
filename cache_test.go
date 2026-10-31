@@ -6,9 +6,12 @@ import (
 	"time"
 )
 
+
+const maxCount = 32
+const windowsSec = 60
 func TestActiveEvictionWorker(t *testing.T){
 	
-	cache:= NewCache()
+	cache:= NewShardMap(maxCount,windowsSec)
 
 	ctx,cancel:= context.WithCancel(context.Background())
 	defer cancel()
@@ -24,7 +27,7 @@ func TestActiveEvictionWorker(t *testing.T){
 
 
 	//Just a check to make sure the count is 1
-	if cache.Count() != 1{
+	if cache.Count() != 1 {
 		t.Fatalf("expected count 1, got %d", cache.Count())
 	}
 
@@ -40,7 +43,7 @@ func TestActiveEvictionWorker(t *testing.T){
 
 
 func BenchmarkCacheSet(b *testing.B){
-	c:= NewCache()
+	c:= NewShardMap(maxCount,windowsSec)
 	val:= []byte("benchmark-value")
 	b.ResetTimer()
 	b.ReportAllocs()
@@ -51,7 +54,7 @@ func BenchmarkCacheSet(b *testing.B){
 }
 
 func BenchmarkCacheGet(b *testing.B) {
-	c := NewCache()
+	c := NewShardMap(maxCount,windowsSec)
 	key := "bench:key"
 	c.Set(key, []byte("benchmark-value"), 0)
 
@@ -64,7 +67,7 @@ func BenchmarkCacheGet(b *testing.B) {
 }
 
 func BenchmarkCacheConcurrency(b *testing.B){
-	c:= NewCache()
+	c := NewShardMap(maxCount,windowsSec)
 	c.Set("key:read",[]byte("read-value"),0)
 	b.ResetTimer()
 	b.ReportAllocs()
